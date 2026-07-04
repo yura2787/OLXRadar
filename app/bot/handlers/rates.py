@@ -16,7 +16,7 @@ async def show_rate(callback: CallbackQuery) -> None:
         rates = await fetch_rates()
     except Exception:
         await callback.message.edit_text(
-            "⚠️ Не вдалося отримати курс. Спробуй пізніше.",
+            "⚠️ Failed to fetch rates. Please try again later.",
             reply_markup=back_keyboard(),
         )
         return
@@ -24,7 +24,7 @@ async def show_rate(callback: CallbackQuery) -> None:
     rate = rates.get(currency)
     if not rate:
         await callback.message.edit_text(
-            f"❌ Курс для {currency} недоступний.",
+            f"❌ Rate for {currency} is unavailable.",
             reply_markup=back_keyboard(),
         )
         return
@@ -40,6 +40,6 @@ async def show_rate(callback: CallbackQuery) -> None:
 async def back_to_menu(callback: CallbackQuery) -> None:
     await callback.answer()
     await callback.message.edit_text(
-        "Обери валюту 👇",
+        "Choose a currency 👇",
         reply_markup=currencies_keyboard(),
     )

@@ -25,5 +25,5 @@ def currencies_keyboard() -> InlineKeyboardMarkup:
 
 def back_keyboard() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=[[
-        InlineKeyboardButton(text="◀️ Назад", callback_data="back:menu")
+        InlineKeyboardButton(text="◀️ Back", callback_data="back:menu")
     ]])

@@ -71,18 +71,18 @@ def _parse_cached(data: list[dict]) -> dict[str, CurrencyRate]:
 def format_rate(rate: CurrencyRate) -> str:
     return (
         f"💵 <b>{rate.currency}/UAH</b>\n"
-        f"Купівля:  <b>{rate.buy:.2f} ₴</b>\n"
-        f"Продаж:   <b>{rate.sell:.2f} ₴</b>\n"
-        f"Оновлено: {rate.updated_at.strftime('%d.%m.%Y %H:%M')}"
+        f"Buy:      <b>{rate.buy:.2f} UAH</b>\n"
+        f"Sell:     <b>{rate.sell:.2f} UAH</b>\n"
+        f"Updated:  {rate.updated_at.strftime('%d.%m.%Y %H:%M')}"
     )
 
 
 def format_digest(rates: dict[str, CurrencyRate]) -> str:
-    lines = ["🌅 <b>Курс валют на сьогодні</b>\n"]
+    lines = ["🌅 <b>Exchange rates for today</b>\n"]
     for currency in ("USD", "EUR"):
         if currency in rates:
             r = rates[currency]
             lines.append(
-                f"<b>{r.currency}</b>  купівля <b>{r.buy:.2f}</b> | продаж <b>{r.sell:.2f}</b>"
+                f"<b>{r.currency}</b>  buy <b>{r.buy:.2f}</b> | sell <b>{r.sell:.2f}</b>"
             )
     return "\n".join(lines)

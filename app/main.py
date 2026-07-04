@@ -8,6 +8,7 @@ from aiogram.enums import ParseMode
 from app.bot.handlers import convert, rates, start, subscribe
 from app.config import settings
 from app.db import create_tables
+from app.scheduler import setup_scheduler
 from app.services.cache import close_redis
 
 logging.basicConfig(
@@ -31,10 +32,14 @@ async def main() -> None:
     dp.include_router(convert.router)
     dp.include_router(subscribe.router)
 
+    scheduler = setup_scheduler(bot)
+    scheduler.start()
     logger.info("Bot started")
+
     try:
         await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
     finally:
+        scheduler.shutdown()
         await close_redis()
         await bot.session.close()
 
