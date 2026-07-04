@@ -1,4 +1,5 @@
 
+<img width="968" height="606" alt="2026-07-04_22-05" src="https://github.com/user-attachments/assets/8a82206b-9080-4b86-8056-537715ee3c0b" />
 
 ## Features
 
