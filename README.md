@@ -1,8 +1,4 @@
-# 💱 Currency Rate Bot
 
-Telegram bot that shows live exchange rates from **monobank** with daily digest subscription.
-
-🤖 **Live demo:** [@currencyh_bot](https://t.me/currencyh_bot)
 
 ## Features
 
