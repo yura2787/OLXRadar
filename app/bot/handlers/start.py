@@ -7,9 +7,9 @@ from app.bot.keyboards import currencies_keyboard
 router = Router()
 
 WELCOME_TEXT = (
-    "👋 <b>Привіт!</b> Я бот курсу валют.\n\n"
-    "Показую актуальні курси з <b>monobank</b>.\n\n"
-    "Обери валюту 👇"
+    "👋 <b>Hello!</b> I'm a currency rate bot.\n\n"
+    "I show live exchange rates from <b>monobank</b>.\n\n"
+    "Choose a currency 👇"
 )
 
 

@@ -6,7 +6,7 @@ from app.services.monobank import SUPPORTED_CURRENCIES, fetch_rates
 
 router = Router()
 
-USAGE = "Використання: /convert <сума> <валюта>\nПриклад: /convert 100 USD"
+USAGE = "Usage: /convert <amount> <currency>\nExample: /convert 100 USD"
 
 
 @router.message(Command("convert"))
@@ -23,23 +23,23 @@ async def cmd_convert(message: Message) -> None:
     try:
         amount = float(raw_amount.replace(",", "."))
     except ValueError:
-        await message.answer(f"❌ <b>{raw_amount}</b> — не число.\n{USAGE}", parse_mode="HTML")
+        await message.answer(f"❌ <b>{raw_amount}</b> is not a valid number.\n{USAGE}", parse_mode="HTML")
         return
 
     if currency not in SUPPORTED_CURRENCIES:
         supported = ", ".join(SUPPORTED_CURRENCIES)
-        await message.answer(f"❌ Валюта <b>{currency}</b> не підтримується.\nДоступні: {supported}", parse_mode="HTML")
+        await message.answer(f"❌ Currency <b>{currency}</b> is not supported.\nAvailable: {supported}", parse_mode="HTML")
         return
 
     try:
         rates = await fetch_rates()
     except Exception:
-        await message.answer("⚠️ Не вдалося отримати курс. Спробуй пізніше.")
+        await message.answer("⚠️ Failed to fetch rates. Please try again later.")
         return
 
     rate = rates.get(currency)
     if not rate:
-        await message.answer(f"❌ Курс для {currency} тимчасово недоступний.")
+        await message.answer(f"❌ Rate for {currency} is temporarily unavailable.")
         return
 
     result_buy = amount * rate.buy
@@ -47,8 +47,8 @@ async def cmd_convert(message: Message) -> None:
 
     await message.answer(
         f"💱 <b>{amount:,.2f} {currency}</b>\n\n"
-        f"За курсом купівлі:  <b>{result_buy:,.2f} ₴</b>\n"
-        f"За курсом продажу: <b>{result_sell:,.2f} ₴</b>\n\n"
-        f"<i>Курс: {rate.buy:.2f} / {rate.sell:.2f}</i>",
+        f"Buy rate:   <b>{result_buy:,.2f} UAH</b>\n"
+        f"Sell rate:  <b>{result_sell:,.2f} UAH</b>\n\n"
+        f"<i>Rate: {rate.buy:.2f} / {rate.sell:.2f}</i>",
         parse_mode="HTML",
     )
